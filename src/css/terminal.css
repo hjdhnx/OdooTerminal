@@ -586,6 +586,8 @@
   overflow: auto;
   outline: none;
   box-shadow: none;
+  color: var(--terminal-color-light);
+  caret-color: var(--terminal-color-white);
 }
 
 .o_terminal .terminal-user-input input {
