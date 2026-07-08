@@ -109,7 +109,7 @@ function initTranslations(langpath: string, lang: string) {
   return i18n.use(HttpApi).init({
     lng: lang_s,
     fallbackLng: 'en',
-    supportedLngs: ['en', 'es'],
+    supportedLngs: ['en', 'es', 'zh'],
     load: ['languageOnly'],
     debug: false,
     backend: {

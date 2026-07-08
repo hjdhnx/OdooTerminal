@@ -406,7 +406,7 @@ export default class Terminal {
   }
 
   getCustomSkills(): Array<AICustomSkillDef> {
-    return this.#config.ai_custom_skills || [];
+    return Array.isArray(this.#config.ai_custom_skills) ? this.#config.ai_custom_skills : [];
   }
 
   cleanInputHistory() {
@@ -1218,7 +1218,7 @@ export default class Terminal {
     if (!selectEl) {
       return;
     }
-    const models = this.#config.ai_models || [];
+    const models = Array.isArray(this.#config.ai_models) ? this.#config.ai_models : [];
     while (selectEl.options.length > 1) {
       selectEl.remove(1);
     }
@@ -1236,7 +1236,7 @@ export default class Terminal {
   }
 
   #applyAIModel(name: string) {
-    const models = this.#config.ai_models || [];
+    const models = Array.isArray(this.#config.ai_models) ? this.#config.ai_models : [];
     const found = models.find(m => m.name === name);
     if (found) {
       aiState.url = found.url;
