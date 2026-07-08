@@ -1624,6 +1624,17 @@
     "question": {
       "aborted": "Operación abortada"
     },
+    "tooltip": {
+      "aiMode": "Modo IA",
+      "aiTips": "Consejos de IA",
+      "attachFile": "Adjuntar archivo",
+      "customSystemPrompt": "Prompt del sistema personalizado",
+      "maximize": "Maximizar",
+      "multiLine": "Multilínea",
+      "newConversation": "Nueva conversación",
+      "pin": "Fijar",
+      "reloadShell": "Recargar Shell"
+    },
     "unknownCommand": "Comando desconocido '{{org_cmd}}' en {{start}}:{{end}}. ¿Quiso decir '<strong class='o_terminal_click o_terminal_cmd' data-cmd='help {{cmd}}'>{{cmd}}</strong>'?",
     "unregisteredUser": "Usuario sin registrar"
   },

@@ -1624,6 +1624,17 @@
     "question": {
       "aborted": "操作已中止"
     },
+    "tooltip": {
+      "aiMode": "AI 模式",
+      "aiTips": "AI 提示",
+      "attachFile": "附加文件",
+      "customSystemPrompt": "自定义系统提示词",
+      "maximize": "最大化",
+      "multiLine": "多行",
+      "newConversation": "新建对话",
+      "pin": "固定",
+      "reloadShell": "重载 Shell"
+    },
     "unknownCommand": "未知命令 '{{org_cmd}}'，位于 {{start}}:{{end}}。您是否想输入 '<strong class='o_terminal_click o_terminal_cmd' data-cmd='help {{cmd}}'>{{cmd}}</strong>'？",
     "unregisteredUser": "未注册用户"
   },

@@ -1624,6 +1624,17 @@
     "question": {
       "aborted": "Operation aborted"
     },
+    "tooltip": {
+      "aiMode": "AI Mode",
+      "aiTips": "AI tips",
+      "attachFile": "Attach file",
+      "customSystemPrompt": "Custom system prompt",
+      "maximize": "Maximize",
+      "multiLine": "Multi-line",
+      "newConversation": "New conversation",
+      "pin": "Pin",
+      "reloadShell": "Reload Shell"
+    },
     "unknownCommand": "Unknown command '{{org_cmd}}' at {{start}}:{{end}}. Did you mean '<strong class='o_terminal_click o_terminal_cmd' data-cmd='help {{cmd}}'>{{cmd}}</strong>'?",
     "unregisteredUser": "Unregistered User"
   },
