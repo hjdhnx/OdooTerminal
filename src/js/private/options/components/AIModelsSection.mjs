@@ -4,6 +4,7 @@ import {defineComponent, h} from 'vue';
 import {Card, Form, FormItem, Input, InputNumber, Select, SelectOption, Table, Button, message, Collapse, CollapsePanel, Tag, Row, Col} from 'ant-design-vue';
 import {t} from '../i18n.mjs';
 import {confirmDialog} from '../ui.mjs';
+import {hasHostPermission, requestHostPermission} from '@shared/host_permissions';
 
 const PROVIDER_DEFAULT_URLS = {
   openai: 'https://api.openai.com/v1',
@@ -28,6 +29,7 @@ export default defineComponent({
       loadStatusType: '',
       modelSuggestions: [],
       activeAdvanced: [],
+      grantedUrls: [],
     };
   },
   computed: {
@@ -37,7 +39,7 @@ export default defineComponent({
         {title: t('optionsTitleAIModelsProvider', 'Provider'), dataIndex: 'provider', width: 110},
         {title: t('optionsTitleAIModelsModel', 'Model'), dataIndex: 'model'},
         {title: t('optionsTitleAIModelsMaxTokens', 'Max tokens'), dataIndex: 'max_tokens', width: 110},
-        {title: '', dataIndex: 'actions', width: 110},
+        {title: '', dataIndex: 'actions', width: 200},
       ];
     },
     models() {
@@ -47,7 +49,58 @@ export default defineComponent({
       return this.loadStatusType === 'error' ? 'red' : this.loadStatusType === 'warning' ? 'orange' : 'green';
     },
   },
+  watch: {
+    newUrl() {
+      this.checkNewUrlGrant();
+    },
+  },
+  mounted() {
+    this.refreshAllGrantStates();
+  },
   methods: {
+    async refreshAllGrantStates() {
+      const models = Array.isArray(this.settings.ai_models) ? this.settings.ai_models : [];
+      const urls = new Set();
+      models.forEach((m) => {
+        if (m.url) urls.add(m.url);
+      });
+      if (this.newUrl) urls.add(this.newUrl);
+      const results = await Promise.all(
+        [...urls].map(async (url) => [url, Boolean(await hasHostPermission(url))]),
+      );
+      this.grantedUrls = results.filter(([, g]) => g).map(([u]) => u);
+    },
+    async checkNewUrlGrant() {
+      if (!this.newUrl) return;
+      const granted = Boolean(await hasHostPermission(this.newUrl));
+      if (granted && !this.grantedUrls.includes(this.newUrl)) {
+        this.grantedUrls = [...this.grantedUrls, this.newUrl];
+      } else if (!granted) {
+        this.grantedUrls = this.grantedUrls.filter((u) => u !== this.newUrl);
+      }
+    },
+    async grantAccess(url) {
+      if (!url) {
+        message.warning(t('optionsAIModelsLoadMissingURL', 'Enter URL first'));
+        return;
+      }
+      try {
+        const granted = await requestHostPermission(url);
+        if (granted && !this.grantedUrls.includes(url)) {
+          this.grantedUrls = [...this.grantedUrls, url];
+        } else if (!granted) {
+          this.grantedUrls = this.grantedUrls.filter((u) => u !== url);
+        }
+        if (granted) {
+          message.success(t('optionsAIModelsGrantSuccess', 'Access granted'));
+        } else {
+          message.warning(t('optionsAIModelsGrantDenied', 'Access denied'));
+        }
+      } catch (err) {
+        const errMsg = err instanceof Error ? err.message : String(err);
+        message.error(`${t('optionsAIModelsGrantError', 'Error granting access')}: ${errMsg}`);
+      }
+    },
     onProviderChange(val) {
       const defaultUrl = PROVIDER_DEFAULT_URLS[val];
       if (defaultUrl && (!this.newUrl || Object.values(PROVIDER_DEFAULT_URLS).includes(this.newUrl))) {
@@ -153,11 +206,22 @@ export default defineComponent({
                 return h('span', null, record.max_tokens > 0 ? String(record.max_tokens) : '-');
               }
               if (column.dataIndex === 'actions') {
-                return h(
-                  Button,
-                  {danger: true, size: 'small', onClick: () => this.confirmRemoveModel(index)},
-                  () => t('optionsTitleThemeRemove', 'Remove'),
-                );
+                const url = record.url;
+                const granted = this.grantedUrls.includes(url);
+                return h('div', {class: 'ot-btn-row'}, [
+                  granted
+                    ? h(Tag, {color: 'green'}, () => `✓ ${t('optionsAIModelsGrantedLabel', 'Access granted')}`)
+                    : h(
+                        Button,
+                        {size: 'small', onClick: () => this.grantAccess(url)},
+                        () => t('optionsTitleAIModelsGrant', 'Grant access'),
+                      ),
+                  h(
+                    Button,
+                    {danger: true, size: 'small', onClick: () => this.confirmRemoveModel(index)},
+                    () => t('optionsTitleThemeRemove', 'Remove'),
+                  ),
+                ]);
               }
               return record[column.dataIndex];
             },
@@ -208,6 +272,13 @@ export default defineComponent({
                 h('div', {class: 'ot-btn-row'}, [
                   h(Button, {type: 'primary', onClick: this.addModel}, () => t('optionsTitleAIModelsAdd', 'Add')),
                   h(Button, {onClick: this.loadModels}, () => t('optionsTitleAIModelsLoad', 'Load models')),
+                  this.grantedUrls.includes(this.newUrl)
+                    ? h(Tag, {color: 'green'}, () => `✓ ${t('optionsAIModelsGrantedLabel', 'Access granted')}`)
+                    : h(
+                        Button,
+                        {onClick: () => this.grantAccess(this.newUrl)},
+                        () => t('optionsTitleAIModelsGrant', 'Grant access'),
+                      ),
                 ]),
               ),
             ),
