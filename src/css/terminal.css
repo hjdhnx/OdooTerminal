@@ -559,6 +559,8 @@
 }
 .o_terminal .terminal-user-input .rich-input > #terminal_input {
   background-color: transparent;
+  color: var(--terminal-color-light);
+  caret-color: var(--terminal-color-white);
 }
 .o_terminal .terminal-user-input .rich-input > #terminal_input.highlight {
   background-color: var(--terminal-color-white);
