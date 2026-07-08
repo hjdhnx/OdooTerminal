@@ -217,6 +217,15 @@ export default class Terminal {
     this.el.querySelector('.terminal-multiline')?.addEventListener('click', this.#onClickToggleMultiline.bind(this));
     // $FlowFixMe[method-unbinding]
     this.el.querySelector('.terminal-screen-icon-reload-shell')?.addEventListener('click', this.#onClickReloadShell.bind(this));
+    const debugBtn = this.el.querySelector('.terminal-screen-icon-debug');
+    // $FlowFixMe[method-unbinding]
+    debugBtn?.addEventListener('click', this.#onClickToggleDebug.bind(this));
+    if (debugBtn instanceof HTMLElement) {
+      const curDebug = new URLSearchParams(window.location.search).get('debug');
+      if (curDebug === '1' || curDebug === 'assets') {
+        debugBtn.classList.add('active');
+      }
+    }
     // $FlowFixMe[method-unbinding]
     this.el.querySelector('.terminal-screen-icon-ai-mode')?.addEventListener('click', this.#onClickToggleAIMode.bind(this));
     // $FlowFixMe[method-unbinding]
@@ -1056,6 +1065,20 @@ export default class Terminal {
     if (!this.#isAIMode) {
       this.printWelcomeMessage();
     }
+  }
+
+  #onClickToggleDebug() {
+    const params = new URLSearchParams(window.location.search);
+    const cur = params.get('debug');
+    let curMode = 0;
+    if (cur === '1') {
+      curMode = 1;
+    } else if (cur === 'assets') {
+      curMode = 2;
+    }
+    const nextMode = (curMode + 1) % 3;
+    params.set('debug', nextMode === 1 ? '1' : nextMode === 2 ? 'assets' : '');
+    window.location.search = params.toString();
   }
 
   #onKeyEnter() {

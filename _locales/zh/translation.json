@@ -1629,6 +1629,7 @@
       "aiTips": "AI 提示",
       "attachFile": "附加文件",
       "customSystemPrompt": "自定义系统提示词",
+      "debug": "切换调试模式",
       "maximize": "最大化",
       "multiLine": "多行",
       "newConversation": "新建对话",

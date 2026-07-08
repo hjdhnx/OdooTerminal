@@ -55,6 +55,11 @@ export default function (): string {
     '</div>' +
     "<div class='terminal-screen-info-zone'>" +
     "<span class='terminal-screen-running-cmds' id='terminal_running_cmd_count'></span>" +
+    "<div class='btn btn-sm btn-dark terminal-screen-icon-debug p-2' role='button' title='" +
+    i18n.t('terminal.tooltip.debug', 'Toggle debug mode') +
+    "'>" +
+    "<i class='fa fa-bug'></i>" +
+    '</div>' +
     "<div class='btn btn-sm btn-dark border-warning mr-5 me-5 terminal-screen-icon-reload-shell p-2' role='button' title='" +
     i18n.t('terminal.tooltip.reloadShell', 'Reload Shell') +
     "'>" +

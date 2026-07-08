@@ -1629,6 +1629,7 @@
       "aiTips": "Consejos de IA",
       "attachFile": "Adjuntar archivo",
       "customSystemPrompt": "Prompt del sistema personalizado",
+      "debug": "Alternar modo depuración",
       "maximize": "Maximizar",
       "multiLine": "Multilínea",
       "newConversation": "Nueva conversación",

@@ -655,6 +655,9 @@
   border-radius: 4px;
   text-align: center;
 }
+.o_terminal .terminal-screen-icon-debug.active {
+  background-color: var(--terminal-color-secondary);
+}
 .o_terminal .terminal-screen-info-zone .terminal-screen-running-cmds {
   color: var(--terminal-color-infor);
 }
