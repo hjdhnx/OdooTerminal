@@ -126,7 +126,7 @@ export default defineComponent({
                     Select,
                     {value: s.fontsize_ca, 'onUpdate:value': (v) => { s.fontsize_ca = v; }, style: {width: '240px'}},
                     () => [
-                      h(SelectOption, {value: 'x-small'}, () => 'X-Small'),
+                      h(SelectOption, {value: 'x-small'}, () => t('optionsTitleThemeFontSizeXSmall', 'X-Small')),
                       h(SelectOption, {value: 'small'}, () => t('optionsTitleThemeFontSizeSmall', 'Small')),
                       h(SelectOption, {value: 'medium'}, () => t('optionsTitleThemeFontSizeMedium', 'Medium')),
                       h(SelectOption, {value: 'large'}, () => t('optionsTitleThemeFontSizeLarge', 'Large')),
