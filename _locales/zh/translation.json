@@ -1527,6 +1527,7 @@
   "optionsTitleMiscRlimitValue": "限制记录数",
   "optionsTitleMiscScreenBufferSize": "屏幕缓冲区大小",
   "optionsTitleMiscShowExecutionTime": "显示执行时间",
+  "optionsTitleMiscShowTechnicalModel": "显示模型技术名称",
   "optionsTitleShortcuts": "快捷键",
   "optionsTitleShortcutsAdd": "添加",
   "optionsTitleShortcutsCommand": "命令",

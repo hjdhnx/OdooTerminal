@@ -1527,6 +1527,7 @@
   "optionsTitleMiscRlimitValue": "Limitar registros",
   "optionsTitleMiscScreenBufferSize": "Tamaño del búfer de pantalla",
   "optionsTitleMiscShowExecutionTime": "Mostrar tiempo de ejecución",
+  "optionsTitleMiscShowTechnicalModel": "Mostrar nombre técnico del modelo",
   "optionsTitleShortcuts": "Atajos",
   "optionsTitleShortcutsAdd": "Añadir",
   "optionsTitleShortcutsCommand": "Comando",

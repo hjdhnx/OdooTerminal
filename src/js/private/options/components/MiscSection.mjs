@@ -25,6 +25,7 @@ export default defineComponent({
           h(Row, {gutter: [16, 0]}, () => [
             h(Col, {xs: 24, sm: 8}, () => switchRow('show_execution_time', t('optionsTitleMiscShowExecutionTime', 'Show Execution Time'))),
             h(Col, {xs: 24, sm: 8}, () => switchRow('hightlight_words', t('optionsTitleMiscHighlightWords', 'Highlight Words'))),
+            h(Col, {xs: 24, sm: 8}, () => switchRow('show_technical_model', t('optionsTitleMiscShowTechnicalModel', 'Show Technical Model Name'))),
           ]),
           h(FormItem, {label: t('optionsTitleMiscHighlightWordsList', 'Highlight Words List')}, () =>
             h(Input, {

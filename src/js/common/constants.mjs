@@ -40,6 +40,7 @@ export const SETTING_TYPES: {
   hightlight_words_list: SettingType,
   rlimit_value: SettingType,
   show_execution_time: SettingType,
+  show_technical_model: SettingType,
   screen_buffer_size: SettingType,
 } = {
   init_cmds: 'edit',
@@ -77,6 +78,7 @@ export const SETTING_TYPES: {
   hightlight_words_list: 'manual',
   rlimit_value: 'int',
   show_execution_time: 'check',
+  show_technical_model: 'check',
   screen_buffer_size: 'int',
 };
 
@@ -118,6 +120,7 @@ export type ExtensionSettings = {
   hightlight_words_list: Array<string>,
   rlimit_value: number,
   show_execution_time: boolean,
+  show_technical_model: boolean,
   screen_buffer_size: number,
 };
 
@@ -157,6 +160,7 @@ export const SETTING_DEFAULTS: ExtensionSettings = {
   hightlight_words_list: [],
   rlimit_value: 0,
   show_execution_time: false,
+  show_technical_model: false,
   screen_buffer_size: 0,
 };
 

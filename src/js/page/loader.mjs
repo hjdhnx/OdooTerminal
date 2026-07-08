@@ -17,6 +17,7 @@ import getUID from '@odoo/net_utils/get_uid';
 import getUsername from '@odoo/net_utils/get_username';
 import getSessionInfo from '@odoo/net_utils/get_session_info';
 import getOdooSession from '@odoo/utils/get_odoo_session';
+import {startTechnicalModelObserver} from '@odoo/page_features/technical_model_name';
 import isBackOffice from '@odoo/utils/is_backoffice';
 import registerMathFuncs from '@trash/core/math/__all__';
 import registerTimeFuncs from '@trash/core/time/__all__';
@@ -109,6 +110,9 @@ async function initTerminal(config: TerminalOptions, info: {[string]: mixed}) {
     raw_server_info: info,
     load_tests: config.devmode_tests,
   };
+  if (config.show_technical_model) {
+    startTechnicalModelObserver();
+  }
   const term_obj = getTerminalObj();
   if (term_obj) {
     loadVMFunctions(term_obj.getShell().getVM());
