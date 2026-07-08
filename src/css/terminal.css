@@ -646,6 +646,14 @@
   right: 1em;
   top: 0;
   z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.o_terminal .terminal-screen-info-zone > .btn {
+  min-width: 36px;
+  border-radius: 4px;
+  text-align: center;
 }
 .o_terminal .terminal-screen-info-zone .terminal-screen-running-cmds {
   color: var(--terminal-color-infor);
