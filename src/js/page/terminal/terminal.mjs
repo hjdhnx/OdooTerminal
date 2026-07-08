@@ -352,6 +352,8 @@ export default class Terminal {
     this.screen.start(this.el, {
       inputColors: this.#config.colors_domain,
       inputMode: this.#config.multiline ? 'multi' : 'single',
+      highlightWords: this.#config.hightlight_words ? this.#config.hightlight_words_list : [],
+      maxLines: this.#config.screen_buffer_size,
       onSaveScreen: function (this: Terminal, content: string) {
         debounce(() => {
           setStorageSessionItem('terminal_screen', content, err => this.screen.print(err));
@@ -403,6 +405,10 @@ export default class Terminal {
   /* BASIC FUNCTIONS */
   getShell(): Shell {
     return this.#shell;
+  }
+
+  getConfig(): TerminalOptions {
+    return this.#config;
   }
 
   getCustomSkills(): Array<AICustomSkillDef> {
@@ -485,6 +491,8 @@ export default class Terminal {
 
   // $FlowFixMe[unclear-type]
   async execute(code: string, store: boolean = true, silent: boolean = false, isolated_frame: boolean = false, update_input: boolean = true): Promise<any> {
+    const track_time = this.#config.show_execution_time;
+    const t0 = track_time ? performance.now() : 0;
     if (!silent) {
       this.screen.printCommand(code);
     }
@@ -502,6 +510,10 @@ export default class Terminal {
         silent: silent,
         aliases: getStorageLocalItem('terminal_aliases', {}),
       }, isolated_frame);
+      if (track_time) {
+        const ms = Math.round(performance.now() - t0);
+        this.screen.print(`<small class='o_terminal-exec-time'>⏱ ${ms} ms</small>`);
+      }
     } catch (err) {
       this.screen.printError(`${err.name}: ${err.message}`);
       let err_msg = err.data;

@@ -15,6 +15,8 @@ import getOdooVersion from '@odoo/utils/get_odoo_version';
 import getOdooService from '@odoo/utils/get_odoo_service';
 import getUID from '@odoo/net_utils/get_uid';
 import getUsername from '@odoo/net_utils/get_username';
+import getSessionInfo from '@odoo/net_utils/get_session_info';
+import getOdooSession from '@odoo/utils/get_odoo_session';
 import isBackOffice from '@odoo/utils/is_backoffice';
 import registerMathFuncs from '@trash/core/math/__all__';
 import registerTimeFuncs from '@trash/core/time/__all__';
@@ -66,6 +68,24 @@ async function postInitTerminal(term_obj: OdooTerminal, config: TerminalOptions)
   const uid = await getUID(config.elephant);
   if (uid && uid !== -1) {
     vals.username = username ? username : `uid: ${uid}`;
+  }
+  let db = '';
+  const sess = getOdooSession();
+  if (sess && typeof sess.db === 'string' && sess.db) {
+    db = sess.db;
+  }
+  if (!db) {
+    const session_info = await getSessionInfo();
+    if (session_info && typeof session_info.db === 'string' && session_info.db) {
+      db = session_info.db;
+    }
+  }
+  if (!db) {
+    const m = window.location.search.match(/[?&]db=([^&]+)/);
+    if (m) db = decodeURIComponent(m[1]);
+  }
+  if (db) {
+    vals.db = db;
   }
   term_obj.screen.updateInputInfo(vals);
 }

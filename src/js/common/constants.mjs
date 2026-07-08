@@ -36,6 +36,11 @@ export const SETTING_TYPES: {
   colors_domain: SettingType,
   ai_models: SettingType,
   ai_custom_skills: SettingType,
+  hightlight_words: SettingType,
+  hightlight_words_list: SettingType,
+  rlimit_value: SettingType,
+  show_execution_time: SettingType,
+  screen_buffer_size: SettingType,
 } = {
   init_cmds: 'edit',
   term_context: 'json',
@@ -68,6 +73,11 @@ export const SETTING_TYPES: {
   colors_domain: 'manual',
   ai_models: 'manual',
   ai_custom_skills: 'manual',
+  hightlight_words: 'check',
+  hightlight_words_list: 'manual',
+  rlimit_value: 'int',
+  show_execution_time: 'check',
+  screen_buffer_size: 'int',
 };
 
 export const SETTING_NAMES: $ReadOnlyArray<string> = Array.from(Object.keys(SETTING_TYPES));
@@ -104,6 +114,11 @@ export type ExtensionSettings = {
   colors_domain: {[string]: string},
   ai_models: Array<AIModelConfig>,
   ai_custom_skills: Array<AICustomSkillDef>,
+  hightlight_words: boolean,
+  hightlight_words_list: Array<string>,
+  rlimit_value: number,
+  show_execution_time: boolean,
+  screen_buffer_size: number,
 };
 
 export const SETTING_DEFAULTS: ExtensionSettings = {
@@ -138,6 +153,11 @@ export const SETTING_DEFAULTS: ExtensionSettings = {
   colors_domain: {},
   ai_models: [],
   ai_custom_skills: [],
+  hightlight_words: false,
+  hightlight_words_list: [],
+  rlimit_value: 0,
+  show_execution_time: false,
+  screen_buffer_size: 0,
 };
 
 export const IGNORED_KEYS: $ReadOnlyArray<string> = ['Control', 'Meta', 'Shift', 'Alt', 'Escape'];
