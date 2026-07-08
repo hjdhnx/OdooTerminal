@@ -175,4 +175,6 @@ export const THEMES: $ReadOnlyArray<[string, string]> = [
   ['light', 'Light'],
   ['odoo', 'Odoo'],
   ['matrix', 'Matrix'],
+  ['hacker', 'Hacker'],
+  ['tech', 'Tech'],
 ]

@@ -62,6 +62,8 @@ export default defineComponent({
       light: t('optionsThemePresetLight', 'Light'),
       odoo: t('optionsThemePresetOdoo', 'Odoo'),
       matrix: t('optionsThemePresetMatrix', 'Matrix'),
+      hacker: t('optionsThemePresetHacker', 'Hacker'),
+      tech: t('optionsThemePresetTech', 'Tech'),
     };
     return h(Card, {title: t('optionsTitleTheme', 'Theme'), class: 'ot-card'}, {
       default: () =>
